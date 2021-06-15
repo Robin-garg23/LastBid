@@ -33,7 +33,7 @@ Task.getTaskById = function (taskId, result) {
             });   
 };
 Task.getAllTask = function (result) {
-        sql.query("Select * from tasks", function (err, res) {
+        sql.query("Select * from item", function (err, res) {
 
                 if(err) {
                     console.log("error: ", err);
