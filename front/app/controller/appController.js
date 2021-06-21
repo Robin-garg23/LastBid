@@ -1,9 +1,9 @@
 'use strict';
 
-var Task = require('../model/appModel.js');
+var Auction = require('../model/appModel.js');
 
 exports.list_all_tasks = function(req, res) {
-  Task.getAllTask(function(err, task) {
+  Auction.getAllTask(function(err, task) {
 
     console.log('controller')
     if (err)
@@ -16,7 +16,7 @@ exports.list_all_tasks = function(req, res) {
 
 
 exports.create_a_task = function(req, res) {
-  var new_task = new Task(req.body);
+  var new_task = new Auction(req.body);
 
   //handles null error 
    if(!new_task.task || !new_task.status){
@@ -26,7 +26,7 @@ exports.create_a_task = function(req, res) {
         }
 else{
   
-  Task.createTask(new_task, function(err, task) {
+  Auction.createTask(new_task, function(err, task) {
     
     if (err)
       res.send(err);
@@ -36,17 +36,24 @@ else{
 };
 
 
-exports.read_a_task = function(req, res) {
-  Task.getTaskById(req.params.taskId, function(err, task) {
+exports.read_a_order = function(req, res) {
+  Auction.getOrdersById(req.params.orderId, function(err, order) {
     if (err)
       res.send(err);
-    res.json(task);
+    res.json(order);
   });
 };
 
+exports.read_a_profile = function(req, res) {
+  Auction.getProfileById(req.params.userId, function(err, user) {
+    if (err)
+      res.send(err);
+    res.json(user);
+  });
+};
 
 exports.update_a_task = function(req, res) {
-  Task.updateById(req.params.taskId, new Task(req.body), function(err, task) {
+  Auction.updateById(req.params.taskId, new Auction(req.body), function(err, task) {
     if (err)
       res.send(err);
     res.json(task);
@@ -57,7 +64,7 @@ exports.update_a_task = function(req, res) {
 exports.delete_a_task = function(req, res) {
 
 
-  Task.remove( req.params.taskId, function(err, task) {
+  Auction.remove( req.params.taskId, function(err, task) {
     if (err)
       res.send(err);
     res.json({ message: 'Task successfully deleted' });
